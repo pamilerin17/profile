@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Profile Card Component</title>
+ <style>
+  /* CSS Reset and Base Styles */
+  * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+  }
+
+  :root {
+   --primary-color: #4a6fa5;
+   --secondary-color: #6b8cbc;
+   --accent-color: #ff6b6b;
+   --text-color: #333;
+   --light-text: #666;
+   --bg-color: #f9f9f9;
+   --card-bg: #ffffff;
+   --border-radius: 12px;
+   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   --transition: all 0.3s ease;
+  }
+
+  body {
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   line-height: 1.6;
+   color: var(--text-color);
+   background-color: var(--bg-color);
+   padding: 20px;
+   min-height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+
+  /* Profile Card Styles */
+  article[data-testid="test-profile-card"] {
+   background-color: var(--card-bg);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   overflow: hidden;
+   width: 100%;
+   max-width: 800px;
+   transition: var(--transition);
+  }
+
+  .card-header {
+   background-color: var(--primary-color);
+   color: white;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+  }
+
+  @media (min-width: 768px) {
+   .card-header {
+    flex-direction: row;
+    text-align: left;
+    padding: 30px;
+   }
+  }
+
+  .avatar-container {
+   margin-bottom: 15px;
+  }
+
+  @media (min-width: 768px) {
+   .avatar-container {
+    margin-bottom: 0;
+    margin-right: 25px;
+   }
+  }
+
+  figure {
+   margin: 0;
+   position: relative;
+  }
+
+  img[data-testid="test-user-avatar"] {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   object-fit: cover;
+   border: 4px solid white;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  figcaption {
+   position: absolute;
+   bottom: -5px;
+   right: 0;
+   background-color: var(--accent-color);
+   color: white;
+   border-radius: 50%;
+   width: 30px;
+   height: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 14px;
+   cursor: pointer;
+   transition: var(--transition);
+  }
+
+  figcaption:hover,
+  figcaption:focus {
+   transform: scale(1.1);
+  }
+
+  .user-info {
+   flex: 1;
+  }
+
+  h2[data-testid="test-user-name"] {
+   font-size: 1.8rem;
+   margin-bottom: 8px;
+  }
+
+  .time-display {
+   font-size: 0.9rem;
+   color: rgba(255, 255, 255, 0.8);
+   margin-bottom: 10px;
+  }
+
+  .card-body {
+   padding: 25px;
+  }
+
+  section {
+   margin-bottom: 25px;
+  }
+
+  h3 {
+   color: var(--primary-color);
+   margin-bottom: 10px;
+   font-size: 1.3rem;
+   border-bottom: 2px solid var(--secondary-color);
+   padding-bottom: 5px;
+  }
+
+  p[data-testid="test-user-bio"] {
+   margin-bottom: 20px;
+   color: var(--light-text);
+   line-height: 1.7;
+  }
+
+  nav[data-testid="test-user-social-links"] ul {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   list-style: none;
+  }
+
+  nav[data-testid="test-user-social-links"] a {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   background-color: var(--primary-color);
+   color: white;
+   text-decoration: none;
+   padding: 8px 15px;
+   border-radius: 20px;
+   font-size: 0.9rem;
+   transition: var(--transition);
+  }
+
+  nav[data-testid="test-user-social-links"] a:hover,
+  nav[data-testid="test-user-social-links"] a:focus {
+   background-color: var(--secondary-color);
+   transform: translateY(-2px);
+  }
+
+  nav[data-testid="test-user-social-links"] a:focus {
+   outline: 2px solid var(--accent-color);
+   outline-offset: 2px;
+  }
+
+  ul[data-testid="test-user-hobbies"],
+  ul[data-testid="test-user-dislikes"] {
+   list-style: none;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 8px;
+  }
+
+  ul[data-testid="test-user-hobbies"] li,
+  ul[data-testid="test-user-dislikes"] li {
+   background-color: #f0f4ff;
+   padding: 6px 12px;
+   border-radius: 15px;
+   font-size: 0.9rem;
+  }
+
+  ul[data-testid="test-user-dislikes"] li {
+   background-color: #ffeaea;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+   .card-header {
+    padding: 15px;
+   }
+
+   .card-body {
+    padding: 15px;
+   }
+
+   img[data-testid="test-user-avatar"] {
+    width: 100px;
+    height: 100px;
+   }
+
+   h2[data-testid="test-user-name"] {
+    font-size: 1.5rem;
+   }
+  }
+
+  /* Focus styles for keyboard navigation */
+  *:focus {
+   outline: 2px solid var(--accent-color);
+   outline-offset: 2px;
+  }
+
+  /* Animation for time update */
+  @keyframes pulse {
+   0% {
+    transform: scale(1);
+   }
+
+   50% {
+    transform: scale(1.05);
+   }
+
+   100% {
+    transform: scale(1);
+   }
+  }
+
+  .time-update {
+   animation: pulse 0.5s ease;
+  }
+ </style>
+</head>
+
+<body>
+ <article data-testid="test-profile-card">
+  <header class="card-header">
+   <div class="avatar-container">
+    <figure>
+     <img
+      src="m.jpg"
+      alt="Profile photo of Jane Smith" data-testid="test-user-avatar">
+     <figcaption tabindex="0" aria-label="Change profile picture">+</figcaption>
+    </figure>
+   </div>
+   <div class="user-info">
+    <h2 data-testid="test-user-name">Okusanya Jude</h2>
+    <div class="time-display">
+     Current time: <span data-testid="test-user-time" id="current-time"></span> ms
+    </div>
+   </div>
+  </header>
+
+  <div class="card-body">
+   <section>
+    <h3>About Me</h3>
+    <p data-testid="test-user-bio">
+     Frontend developer with 5+ years of experience building responsive, accessible web applications.
+     Passionate about user experience and clean code. When not coding, I enjoy hiking, photography, and trying new
+     coffee shops.
+    </p>
+   </section>
+
+   <section>
+    <h3>Connect With Me</h3>
+    <nav data-testid="test-user-social-links" aria-label="Social media links">
+     <ul>
+      <li>
+       <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"
+        data-testid="test-user-social-twitter">
+        Twitter
+       </a>
+      </li>
+      <li>
+       <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer"
+        data-testid="test-user-social-linkedin">
+        LinkedIn
+       </a>
+      </li>
+      <li>
+       <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+        data-testid="test-user-social-github">
+        GitHub
+       </a>
+      </li>
+      <li>
+       <a href="https://codepen.io/" target="_blank" rel="noopener noreferrer"
+        data-testid="test-user-social-codepen">
+        CodePen
+       </a>
+      </li>
+     </ul>
+    </nav>
+   </section>
+
+   <section>
+    <h3>Hobbies</h3>
+    <ul data-testid="test-user-hobbies">
+     <li>Photography</li>
+     <li>Hiking</li>
+     <li>Coffee Brewing</li>
+     <li>Reading</li>
+     <li>Board Games</li>
+    </ul>
+   </section>
+
+   <section>
+    <h3>Dislikes</h3>
+    <ul data-testid="test-user-dislikes">
+     <li>Loud noises</li>
+     <li>Traffic jams</li>
+     <li>Broken code</li>
+     <li>Cold coffee</li>
+    </ul>
+   </section>
+  </div>
+ </article>
+
+ <script>
+  // Update the current time in milliseconds
+  function updateTime() {
+   const timeElement = document.getElementById('current-time');
+   const currentTime = Date.now();
+
+   // Add animation class for visual feedback
+   timeElement.classList.add('time-update');
+
+   // Update the time
+   timeElement.textContent = currentTime;
+
+   // Remove animation class after animation completes
+   setTimeout(() => {
+    timeElement.classList.remove('time-update');
+   }, 500);
+  }
+
+  // Initialize time and update every second
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  // Handle avatar upload functionality
+  document.querySelector('figcaption').addEventListener('click', function () {
+   const fileInput = document.createElement('input');
+   fileInput.type = 'file';
+   fileInput.accept = 'image/*';
+
+   fileInput.addEventListener('change', function (e) {
+    if (e.target.files && e.target.files[0]) {
+     const reader = new FileReader();
+
+     reader.onload = function (event) {
+      const avatar = document.querySelector('[data-testid="test-user-avatar"]');
+      avatar.src = event.target.result;
+     };
+
+     reader.readAsDataURL(e.target.files[0]);
+    }
+   });
+
+   fileInput.click();
+  });
+
+  // Also allow avatar upload via keyboard (Enter key)
+  document.querySelector('figcaption').addEventListener('keydown', function (e) {
+   if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    this.click();
+   }
+  });
+ </script>
+</body>
+
+</html>
+
+
