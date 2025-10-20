@@ -4,9 +4,9 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Profile Card Component</title>
+ <title>Multi-Page Application</title>
  <style>
-  /* CSS Reset and Base Styles */
+
   * {
    margin: 0;
    padding: 0;
@@ -33,9 +33,52 @@
    background-color: var(--bg-color);
    padding: 20px;
    min-height: 100vh;
+  }
+
+  /* Navigation Styles */
+  nav[data-testid="test-main-nav"] {
+   background-color: var(--primary-color);
+   border-radius: var(--border-radius);
+   margin-bottom: 30px;
+   box-shadow: var(--shadow);
+  }
+
+  nav[data-testid="test-main-nav"] ul {
+   display: flex;
+   list-style: none;
+   flex-wrap: wrap;
+  }
+
+  nav[data-testid="test-main-nav"] li {
+   flex: 1;
+   min-width: 120px;
+  }
+
+  nav[data-testid="test-main-nav"] a {
+   display: block;
+   color: white;
+   text-decoration: none;
+   padding: 15px 20px;
+   text-align: center;
+   transition: var(--transition);
+   font-weight: 500;
+  }
+
+  nav[data-testid="test-main-nav"] a:hover,
+  nav[data-testid="test-main-nav"] a:focus {
+   background-color: var(--secondary-color);
+  }
+
+  nav[data-testid="test-main-nav"] a.active {
+   background-color: var(--accent-color);
+  }
+
+  /* Page Container */
+  .page-container {
    display: flex;
    justify-content: center;
-   align-items: center;
+   align-items: flex-start;
+   min-height: calc(100vh - 100px);
   }
 
   /* Profile Card Styles */
@@ -202,6 +245,142 @@
    background-color: #ffeaea;
   }
 
+  /* Contact Form Styles */
+  main[data-testid="test-contact-page"] {
+   background-color: var(--card-bg);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   padding: 30px;
+   width: 100%;
+   max-width: 600px;
+  }
+
+  h1 {
+   color: var(--primary-color);
+   margin-bottom: 25px;
+   text-align: center;
+  }
+
+  .form-group {
+   margin-bottom: 20px;
+  }
+
+  label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: 600;
+   color: var(--text-color);
+  }
+
+  input[data-testid="test-contact-name"],
+  input[data-testid="test-contact-email"],
+  input[data-testid="test-contact-subject"],
+  textarea[data-testid="test-contact-message"] {
+   width: 100%;
+   padding: 12px;
+   border: 2px solid #e1e5eb;
+   border-radius: 8px;
+   font-size: 1rem;
+   transition: var(--transition);
+  }
+  [data-testid="test-user-name"] {
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: start;
+  color: white;
+}
+
+  input:focus,
+  textarea:focus {
+   outline: none;
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+  }
+
+  textarea[data-testid="test-contact-message"] {
+   min-height: 150px;
+   resize: vertical;
+  }
+
+  button[data-testid="test-contact-submit"] {
+   background-color: var(--primary-color);
+   color: white;
+   border: none;
+   padding: 12px 30px;
+   border-radius: 8px;
+   font-size: 1rem;
+   font-weight: 600;
+   cursor: pointer;
+   transition: var(--transition);
+   width: 100%;
+  }
+
+  button[data-testid="test-contact-submit"]:hover,
+  button[data-testid="test-contact-submit"]:focus {
+   background-color: var(--secondary-color);
+   transform: translateY(-2px);
+  }
+
+  .error-message {
+   color: #d32f2f;
+   font-size: 0.875rem;
+   margin-top: 5px;
+   display: none;
+  }
+
+  .error-message.show {
+   display: block;
+  }
+
+  .success-message {
+   background-color: #e8f5e9;
+   color: #2e7d32;
+   padding: 15px;
+   border-radius: 8px;
+   margin-top: 20px;
+   text-align: center;
+   display: none;
+  }
+
+  .success-message.show {
+   display: block;
+  }
+
+  /* About Page Styles */
+  main[data-testid="test-about-page"] {
+   background-color: var(--card-bg);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   padding: 30px;
+   width: 100%;
+   max-width: 800px;
+  }
+
+  section[data-testid="test-about-bio"],
+  section[data-testid="test-about-goals"],
+  section[data-testid="test-about-confidence"],
+  section[data-testid="test-about-future-note"],
+  section[data-testid="test-about-extra"] {
+   margin-bottom: 30px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid #e1e5eb;
+  }
+
+  h2 {
+   color: var(--primary-color);
+   margin-bottom: 15px;
+   font-size: 1.5rem;
+  }
+
+  h3 {
+   color: var(--secondary-color);
+   margin-bottom: 10px;
+   font-size: 1.2rem;
+   border-bottom: none;
+   padding-bottom: 0;
+  }
+
   /* Responsive adjustments */
   @media (max-width: 480px) {
    .card-header {
@@ -219,6 +398,15 @@
 
    h2[data-testid="test-user-name"] {
     font-size: 1.5rem;
+   }
+
+   nav[data-testid="test-main-nav"] ul {
+    flex-direction: column;
+   }
+
+   main[data-testid="test-contact-page"],
+   main[data-testid="test-about-page"] {
+    padding: 20px;
    }
   }
 
@@ -246,94 +434,239 @@
   .time-update {
    animation: pulse 0.5s ease;
   }
+
+  /* Page visibility */
+  .page {
+   display: none;
+  }
+
+  .page.active {
+   display: block;
+  }
  </style>
 </head>
 
 <body>
- <article data-testid="test-profile-card">
-  <header class="card-header">
-   <div class="avatar-container">
-    <figure>
-     <img
-      src="m.jpg"
-      alt="Profile photo of Jane Smith" data-testid="test-user-avatar">
-     <figcaption tabindex="0" aria-label="Change profile picture">+</figcaption>
-    </figure>
-   </div>
-   <div class="user-info">
-    <h2 data-testid="test-user-name">Okusanya Jude</h2>
-    <div class="time-display">
-     Current time: <span data-testid="test-user-time" id="current-time"></span> ms
+ <!-- Navigation -->
+ <nav data-testid="test-main-nav" aria-label="Main navigation">
+  <ul>
+   <li><a href="#" data-page="profile" class="nav-link active">Profile</a></li>
+   <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+   <li><a href="#" data-page="about" class="nav-link">About Me</a></li>
+  </ul>
+ </nav>
+
+ <div class="page-container">
+  <!-- Profile Page -->
+  <article data-testid="test-profile-card" class="page active" id="profile-page">
+   <header class="card-header">
+    <div class="avatar-container">
+     <figure>
+      <img
+       src="m.jpg"
+       alt="Profile photo of Jane Smith" data-testid="test-user-avatar">
+      <figcaption tabindex="0" aria-label="Change profile picture">+</figcaption>
+     </figure>
     </div>
-   </div>
-  </header>
+    <div class="user-info">
+     <h2 data-testid="test-user-name">Okusanya Jude</h2>
+     <div class="time-display">
+      Current time: <span data-testid="test-user-time" id="current-time"></span> ms
+     </div>
+    </div>
+   </header>
 
-  <div class="card-body">
-   <section>
-    <h3>About Me</h3>
-    <p data-testid="test-user-bio">
-     Frontend developer with 5+ years of experience building responsive, accessible web applications.
-     Passionate about user experience and clean code. When not coding, I enjoy hiking, photography, and trying new
-     coffee shops.
-    </p>
-   </section>
+   <div class="card-body">
+    <section>
+     <h3>About Me</h3>
+     <p data-testid="test-user-bio">
+      Frontend developer with 5+ years of experience building responsive, accessible web applications.
+      Passionate about user experience and clean code. When not coding, I enjoy hiking, photography, and trying new
+      coffee shops.
+     </p>
+    </section>
 
-   <section>
-    <h3>Connect With Me</h3>
-    <nav data-testid="test-user-social-links" aria-label="Social media links">
-     <ul>
-      <li>
-       <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"
-        data-testid="test-user-social-twitter">
-        Twitter
-       </a>
-      </li>
-      <li>
-       <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer"
-        data-testid="test-user-social-linkedin">
-        LinkedIn
-       </a>
-      </li>
-      <li>
-       <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
-        data-testid="test-user-social-github">
-        GitHub
-       </a>
-      </li>
-      <li>
-       <a href="https://codepen.io/" target="_blank" rel="noopener noreferrer"
-        data-testid="test-user-social-codepen">
-        CodePen
-       </a>
-      </li>
+    <section>
+     <h3>Connect With Me</h3>
+     <nav data-testid="test-user-social-links" aria-label="Social media links">
+      <ul>
+       <li>
+        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"
+         data-testid="test-user-social-twitter">
+         Twitter
+        </a>
+       </li>
+       <li>
+        <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer"
+         data-testid="test-user-social-linkedin">
+         LinkedIn
+        </a>
+       </li>
+       <li>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+         data-testid="test-user-social-github">
+         GitHub
+        </a>
+       </li>
+       <li>
+        <a href="https://codepen.io/" target="_blank" rel="noopener noreferrer"
+         data-testid="test-user-social-codepen">
+         CodePen
+        </a>
+       </li>
+      </ul>
+     </nav>
+    </section>
+
+    <section>
+     <h3>Hobbies</h3>
+     <ul data-testid="test-user-hobbies">
+      <li>Photography</li>
+      <li>Hiking</li>
+      <li>Coffee Brewing</li>
+      <li>Reading</li>
+      <li>Board Games</li>
      </ul>
-    </nav>
+    </section>
+
+    <section>
+     <h3>Dislikes</h3>
+     <ul data-testid="test-user-dislikes">
+      <li>Loud noises</li>
+      <li>Traffic jams</li>
+      <li>Broken code</li>
+      <li>Cold coffee</li>
+     </ul>
+    </section>
+   </div>
+  </article>
+
+  <!-- Contact Page -->
+  <main data-testid="test-contact-page" class="page" id="contact-page">
+   <h1>Contact Me</h1>
+   <form id="contact-form" novalidate>
+    <div class="form-group">
+     <label for="contact-name">Full Name</label>
+     <input type="text" id="contact-name" data-testid="test-contact-name" aria-describedby="name-error" required>
+     <div id="name-error" data-testid="test-contact-error-name" class="error-message" aria-live="polite">
+      Please enter your full name
+     </div>
+    </div>
+
+    <div class="form-group">
+     <label for="contact-email">Email Address</label>
+     <input type="email" id="contact-email" data-testid="test-contact-email" aria-describedby="email-error" required>
+     <div id="email-error" data-testid="test-contact-error-email" class="error-message" aria-live="polite">
+      Please enter a valid email address
+     </div>
+    </div>
+
+    <div class="form-group">
+     <label for="contact-subject">Subject</label>
+     <input type="text" id="contact-subject" data-testid="test-contact-subject" aria-describedby="subject-error"
+      required>
+     <div id="subject-error" data-testid="test-contact-error-subject" class="error-message" aria-live="polite">
+      Please enter a subject
+     </div>
+    </div>
+
+    <div class="form-group">
+     <label for="contact-message">Message</label>
+     <textarea id="contact-message" data-testid="test-contact-message" aria-describedby="message-error"
+      required></textarea>
+     <div id="message-error" data-testid="test-contact-error-message" class="error-message" aria-live="polite">
+      Message must be at least 10 characters long
+     </div>
+    </div>
+
+    <button type="submit" data-testid="test-contact-submit">Send Message</button>
+
+    <div data-testid="test-contact-success" class="success-message" aria-live="polite">
+     Thank you for your message! We'll get back to you soon.
+    </div>
+   </form>
+  </main>
+
+  <!-- About Page -->
+  <main data-testid="test-about-page" class="page" id="about-page">
+   <h1>About Me</h1>
+
+   <section data-testid="test-about-bio">
+    <h2>My Journey</h2>
+    <p>I'm a passionate frontend developer who started my coding journey during college. What began as a curiosity about
+     how websites work has evolved into a deep love for creating intuitive, accessible user experiences. Over the past
+     five years, I've worked with various technologies and frameworks, but my core philosophy remains the same: build
+     things that work well for everyone.</p>
    </section>
 
-   <section>
-    <h3>Hobbies</h3>
-    <ul data-testid="test-user-hobbies">
-     <li>Photography</li>
-     <li>Hiking</li>
-     <li>Coffee Brewing</li>
-     <li>Reading</li>
-     <li>Board Games</li>
-    </ul>
+   <section data-testid="test-about-goals">
+    <h2>Goals in This Program</h2>
+    <h3>Technical Mastery</h3>
+    <p>I aim to deepen my understanding of modern JavaScript patterns and improve my skills in building scalable,
+     maintainable applications.</p>
+
+    <h3>Accessibility Advocacy</h3>
+    <p>I want to become a stronger advocate for web accessibility, ensuring the digital products I build are usable by
+     everyone regardless of ability.</p>
+
+    <h3>Collaboration Skills</h3>
+    <p>I hope to enhance my ability to work effectively in team environments and contribute to open source projects.</p>
    </section>
 
-   <section>
-    <h3>Dislikes</h3>
-    <ul data-testid="test-user-dislikes">
-     <li>Loud noises</li>
-     <li>Traffic jams</li>
-     <li>Broken code</li>
-     <li>Cold coffee</li>
-    </ul>
+   <section data-testid="test-about-confidence">
+    <h2>Areas of Low Confidence</h2>
+    <h3>Advanced State Management</h3>
+    <p>While comfortable with basic state management, I sometimes struggle with complex state patterns in large
+     applications.</p>
+
+    <h3>Performance Optimization</h3>
+    <p>Identifying and fixing performance bottlenecks, especially in React applications, is an area I'm actively working
+     to improve.</p>
+
+    <h3>Backend Integration</h3>
+    <p>While I understand REST APIs well, I want to gain more confidence working with GraphQL and real-time data
+     streams.</p>
    </section>
-  </div>
- </article>
+
+   <section data-testid="test-about-future-note">
+    <h2>Note to My Future Self</h2>
+    <p>Remember why you started this journey - because you love creating things that help people. Don't get so caught up
+     in the latest frameworks that you forget the fundamentals. Keep learning, stay curious, and always prioritize the
+     human using your software over the technology you're using to build it.</p>
+   </section>
+
+   <section data-testid="test-about-extra">
+    <h2>Additional Reflections</h2>
+    <p>The web development landscape changes rapidly, but the core principles of good design and user-centered
+     development remain constant. I'm excited to continue growing as a developer while maintaining focus on building
+     inclusive, performant web experiences.</p>
+    <p>I believe that great software is built through collaboration, continuous learning, and a willingness to adapt.
+     Every project is an opportunity to improve and every challenge is a chance to learn something new.</p>
+   </section>
+  </main>
+ </div>
 
  <script>
+  // Page Navigation
+  document.querySelectorAll('.nav-link').forEach(link => {
+   link.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Update active nav link
+    document.querySelectorAll('.nav-link').forEach(nav => {
+     nav.classList.remove('active');
+    });
+    this.classList.add('active');
+
+    // Show selected page
+    const pageId = this.getAttribute('data-page');
+    document.querySelectorAll('.page').forEach(page => {
+     page.classList.remove('active');
+    });
+    document.getElementById(`${pageId}-page`).classList.add('active');
+   });
+  });
+
   // Update the current time in milliseconds
   function updateTime() {
    const timeElement = document.getElementById('current-time');
@@ -384,9 +717,93 @@
     this.click();
    }
   });
+
+  // Contact Form Validation
+  const contactForm = document.getElementById('contact-form');
+  const successMessage = document.querySelector('[data-testid="test-contact-success"]');
+
+  contactForm.addEventListener('submit', function (e) {
+   e.preventDefault();
+
+   // Reset previous errors and success message
+   document.querySelectorAll('.error-message').forEach(error => {
+    error.classList.remove('show');
+   });
+   successMessage.classList.remove('show');
+
+   let isValid = true;
+
+   // Validate name
+   const nameInput = document.querySelector('[data-testid="test-contact-name"]');
+   if (!nameInput.value.trim()) {
+    document.querySelector('[data-testid="test-contact-error-name"]').classList.add('show');
+    isValid = false;
+   }
+
+   // Validate email
+   const emailInput = document.querySelector('[data-testid="test-contact-email"]');
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   if (!emailInput.value.trim() || !emailRegex.test(emailInput.value)) {
+    document.querySelector('[data-testid="test-contact-error-email"]').classList.add('show');
+    isValid = false;
+   }
+
+   // Validate subject
+   const subjectInput = document.querySelector('[data-testid="test-contact-subject"]');
+   if (!subjectInput.value.trim()) {
+    document.querySelector('[data-testid="test-contact-error-subject"]').classList.add('show');
+    isValid = false;
+   }
+
+   // Validate message
+   const messageInput = document.querySelector('[data-testid="test-contact-message"]');
+   if (!messageInput.value.trim() || messageInput.value.trim().length < 10) {
+    document.querySelector('[data-testid="test-contact-error-message"]').classList.add('show');
+    isValid = false;
+   }
+
+   // If valid, show success message
+   if (isValid) {
+    successMessage.classList.add('show');
+    contactForm.reset();
+
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+     successMessage.classList.remove('show');
+    }, 5000);
+   }
+  });
+
+  // Real-time validation for better UX
+  document.querySelectorAll('#contact-form input, #contact-form textarea').forEach(input => {
+   input.addEventListener('blur', function () {
+    // Only validate if the field has been touched and has content
+    if (this.value.trim()) {
+     let isValid = true;
+     const testId = this.getAttribute('data-testid');
+
+     if (testId === 'test-contact-email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      isValid = emailRegex.test(this.value);
+     } else if (testId === 'test-contact-message') {
+      isValid = this.value.trim().length >= 10;
+     }
+
+     if (!isValid) {
+      const errorField = testId.replace('contact-', 'contact-error-');
+      document.querySelector(`[data-testid="${errorField}"]`).classList.add('show');
+     }
+    }
+   });
+
+   input.addEventListener('input', function () {
+    // Hide error when user starts typing
+    const testId = this.getAttribute('data-testid');
+    const errorField = testId.replace('contact-', 'contact-error-');
+    document.querySelector(`[data-testid="${errorField}"]`).classList.remove('show');
+   });
+  });
  </script>
 </body>
 
 </html>
-
-
